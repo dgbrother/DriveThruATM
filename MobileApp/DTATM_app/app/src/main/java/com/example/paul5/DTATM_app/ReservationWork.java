@@ -2,6 +2,7 @@ package com.example.paul5.DTATM_app;
 
 public class ReservationWork {
     private String businessName;
+    private String testbranch;
 
     public void setBusinessName(String businessName) {
         this.businessName = businessName;
