@@ -1,6 +1,7 @@
 package com.example.paul5.DTATM_app;
 
 import android.content.ContentValues;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class RequestHttpURLConnection {
         // HttpURLConnection 을 통해 Web의 데이터 가져오기
         try {
             URL url = new URL(_url);
+            Log.d("http", url.toString());
             urlConn = (HttpURLConnection) url.openConnection();
 
             // url 설정
@@ -57,10 +59,11 @@ public class RequestHttpURLConnection {
             os.flush();
             os.close();
 
+            Log.d("http", "responseCode"+urlConn.getResponseCode());
             // 연결 요청 확인
             if(urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-
+            Log.d("http", "conn true");
             // 읽어온 데이터 리턴
             BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
 
@@ -70,6 +73,7 @@ public class RequestHttpURLConnection {
             while((line = reader.readLine()) != null) {
                 page += line;
             }
+            Log.d("http", page);
 
             return page;
         } catch (MalformedURLException e) {
