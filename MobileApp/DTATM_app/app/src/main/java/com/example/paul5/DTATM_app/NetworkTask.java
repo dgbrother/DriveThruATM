@@ -25,6 +25,5 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        //Log.d("param", s);
     }
 }
