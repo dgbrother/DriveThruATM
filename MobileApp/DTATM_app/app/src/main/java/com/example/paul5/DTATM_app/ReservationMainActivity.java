@@ -16,13 +16,14 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
 
         findViewById(R.id.addworkbutton).setOnClickListener(this);
 
-        String url = "http://35.200.117.1";
-        NetworkTask networkTask = new NetworkTask(url, null);
-        networkTask.execute();
-
         adapter = new ListViewAdapter();
         ListView listview = findViewById(R.id.reservation_list);
         listview.setAdapter(adapter);
+
+        String param = "test";
+        String url = "http://35.200.117.1:8080/test.jsp?param="+param;
+        NetworkTask networkTask = new NetworkTask(url, null);
+        networkTask.execute();
     }
 
     @Override

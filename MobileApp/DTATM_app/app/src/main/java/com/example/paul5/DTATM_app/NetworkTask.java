@@ -2,6 +2,7 @@ package com.example.paul5.DTATM_app;
 
 import android.content.ContentValues;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class NetworkTask extends AsyncTask<Void, Void, String> {
     private String url;
@@ -24,7 +25,6 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-
-        // Data 저장
+        Log.d("param", s);
     }
 }
