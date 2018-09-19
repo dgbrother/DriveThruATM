@@ -10,6 +10,7 @@
         android:layout_marginTop="150dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:hint="ID를 입력하세요."
         android:id="@+id/id"/>
 
     <EditText
@@ -18,6 +19,8 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
+        android:inputType="textPassword"
+        android:hint="비밀번호를 입력하세요."
         android:id="@+id/password"/>
 
     <LinearLayout
@@ -28,22 +31,13 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="확인"
+            android:layout_marginLeft="80dp"
+            android:layout_marginRight="80dp"
+            android:text="로그인"
             android:textSize="20sp"
             android:id="@+id/confirm"/>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="50dp"
-            android:layout_weight="1"
-            android:text="취소"
-            android:textSize="20sp"
-            android:id="@+id/cancel"/>
+
 
     </LinearLayout>
 
