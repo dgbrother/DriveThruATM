@@ -19,6 +19,7 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         findViewById(R.id.addworkbutton).setOnClickListener(this);
 
         adapter = new ListViewAdapter();
+        adapter.addItem("name");
         ListView listview = findViewById(R.id.reservation_list);
         listview.setAdapter(adapter);
 
