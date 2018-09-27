@@ -32,7 +32,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
             case R.id.search :
                 break;
             case R.id.user_edit :
-                Intent intent3 = new Intent(Main.this, UserEdit.class);
+                Intent intent3 = new Intent(Main.this, UserInfoEditActivity.class);
                 startActivity(intent3);
                 break;
             case R.id.logout :
