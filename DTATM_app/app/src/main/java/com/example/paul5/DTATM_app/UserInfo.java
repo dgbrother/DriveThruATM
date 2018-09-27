@@ -19,19 +19,6 @@ public class UserInfo {
         this.nfcId = nfcId;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "name='" + name + '\'' +
-                ", id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", account='" + account + '\'' +
-                ", carNumber='" + carNumber + '\'' +
-                ", nfcId='" + nfcId + '\'' +
-                '}';
-    }
-
     public String getName() {
         return name;
     }

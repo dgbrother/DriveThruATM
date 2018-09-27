@@ -23,7 +23,7 @@ public class UserInfoEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_edit);
 
-        final String userId = "ID1234";
+        String userId = "ID1234";
         userInfo = getUserInfo(userId);
 
         eUserName = findViewById(R.id.userInfo_userName_editText);
