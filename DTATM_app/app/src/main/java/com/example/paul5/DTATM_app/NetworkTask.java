@@ -2,9 +2,9 @@ package com.example.paul5.DTATM_app;
 
 import android.content.ContentValues;
 import android.os.AsyncTask;
-import android.util.Log;
+import org.json.JSONObject;
 
-public class NetworkTask extends AsyncTask<Void, Void, String> {
+public class NetworkTask extends AsyncTask<Void, Void, JSONObject> {
     private String url;
     private ContentValues values;
 
@@ -14,16 +14,17 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
     }
 
     @Override
-    protected String doInBackground(Void... voids) {
-        String result;
+    protected JSONObject doInBackground(Void... voids) {
+        JSONObject result;
         RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
         result = requestHttpURLConnection.request(url, values);
 
-        return result;      // onPostExecute의 인자값이 된다.
+        return result;
     }
 
     @Override
-    protected void onPostExecute(String s) {
+    protected void onPostExecute(JSONObject s) {
         super.onPostExecute(s);
+
     }
 }
