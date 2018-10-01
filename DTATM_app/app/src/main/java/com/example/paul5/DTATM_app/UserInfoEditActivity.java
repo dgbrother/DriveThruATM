@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -73,10 +72,8 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         @Override
         protected UserInfo doInBackground(Void... voids) {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            String action = values.get("action").toString();
-            Log.d("hello", "action: "+action);
-
             JSONObject jsonResult = requestHttpURLConnection.request(url, values);
+
             UserInfo userInfo = jsonToUserInfo(jsonResult);
             return userInfo;
         }
@@ -121,14 +118,14 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
          */
         if(status.equals("수정")) {
             setEnables(true);
+
             editButton.setText("저장");
             okButton.setEnabled(false);
         }
         if(status.equals("저장")) {
-
             updateUserInfo();
-
             setEnables(false);
+
             editButton.setText("수정");
             okButton.setEnabled(true);
         }

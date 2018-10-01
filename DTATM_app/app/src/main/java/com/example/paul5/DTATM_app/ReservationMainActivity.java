@@ -1,6 +1,5 @@
 package com.example.paul5.DTATM_app;
 
-import android.content.ContentValues;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
