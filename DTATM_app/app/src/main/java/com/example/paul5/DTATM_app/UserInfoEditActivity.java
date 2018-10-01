@@ -18,7 +18,8 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
     EditText eUserName, eUserID, eUserPassword, eUserEmail;
     EditText eUserAccount, eUserCarNumber, eUserNFCID;
     Button editButton, okButton;
-    String userId;
+    String currentUserId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +39,11 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         okButton        .setOnClickListener(this);
 
         // 원래는 로그인 정보 가져옴
-        userId = "ID1234";
+        currentUserId = "ID1234";
 
         ContentValues params = new ContentValues();
         params.put("action", "select");
-        params.put("userid", userId);
+        params.put("userid", currentUserId);
 
         NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
         getUserInfoTask.execute();
@@ -147,7 +148,7 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
     private void updateUserInfo() {
         ContentValues params = new ContentValues();
         params.put("action", "update");
-        params.put("userid", userId);
+        params.put("userid", currentUserId);
         params.put("id", eUserID.getText().toString());
         params.put("password", eUserPassword.getText().toString());
         params.put("name", eUserName.getText().toString());
