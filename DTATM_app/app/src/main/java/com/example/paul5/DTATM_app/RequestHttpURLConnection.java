@@ -67,6 +67,7 @@ public class RequestHttpURLConnection {
                 page += line;
             }
 
+
             JSONObject jsonObject = new JSONObject(page);
             return jsonObject;
 

@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,11 +14,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserInfoEditActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String SERVER_URL = "http://35.200.117.1:8080/control_json.jsp";
+    private final String SERVER_URL = "http://35.200.117.1:8080/user_info.jsp";
     EditText eUserName, eUserID, eUserPassword, eUserEmail;
     EditText eUserAccount, eUserCarNumber, eUserNFCID;
     Button editButton, okButton;
-
+    String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,10 +38,10 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         okButton        .setOnClickListener(this);
 
         // 원래는 로그인 정보 가져옴
-        String userId = "ID1234";
+        userId = "ID1234";
 
         ContentValues params = new ContentValues();
-        params.put("action", "userinfo");
+        params.put("action", "select");
         params.put("userid", userId);
 
         NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
@@ -71,8 +72,10 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         @Override
         protected UserInfo doInBackground(Void... voids) {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            JSONObject jsonResult = requestHttpURLConnection.request(url, values);
+            String action = values.get("action").toString();
+            Log.d("hello", "action: "+action);
 
+            JSONObject jsonResult = requestHttpURLConnection.request(url, values);
             UserInfo userInfo = jsonToUserInfo(jsonResult);
             return userInfo;
         }
@@ -88,7 +91,6 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
     private UserInfo jsonToUserInfo(JSONObject jsonObject) {
         try {
             JSONArray jsonArray = jsonObject.getJSONArray("data");
-
             JSONObject jobj = jsonArray.getJSONObject(0);
 
             UserInfo userInfo = new UserInfo(
@@ -122,6 +124,9 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
             okButton.setEnabled(false);
         }
         if(status.equals("저장")) {
+
+            updateUserInfo();
+
             setEnables(false);
             editButton.setText("수정");
             okButton.setEnabled(true);
@@ -137,6 +142,22 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         eUserAccount    .setText(userInfo.getAccount());
         eUserCarNumber  .setText(userInfo.getCarNumber());
         eUserNFCID      .setText(userInfo.getNfcId());
+    }
+
+    private void updateUserInfo() {
+        ContentValues params = new ContentValues();
+        params.put("action", "update");
+        params.put("userid", userId);
+        params.put("id", eUserID.getText().toString());
+        params.put("password", eUserPassword.getText().toString());
+        params.put("name", eUserName.getText().toString());
+        params.put("email", eUserEmail.getText().toString());
+        params.put("account", eUserAccount.getText().toString());
+        params.put("carNumber", eUserCarNumber.getText().toString());
+        params.put("nfcid", eUserNFCID.getText().toString());
+
+        NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
+        getUserInfoTask.execute();
     }
 
     // edit Text의 활성화 토글
