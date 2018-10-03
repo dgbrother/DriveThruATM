@@ -23,6 +23,7 @@
         <activity android:name=".Main" />
         <activity android:name=".UserInfoEditActivity" />
         <activity android:name=".Reserve"></activity>
+
     </application>
 
 </manifest>
