@@ -21,9 +21,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Main" />
-        <activity android:name=".UserInfoEditActivity">
+        <activity android:name=".UserInfoEditActivity" />
+        <activity android:name=".Reserve"></activity>
 
-        </activity>
     </application>
 
 </manifest>
