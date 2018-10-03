@@ -1,5 +1,6 @@
 package com.example.paul5.DTATM_app;
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -63,10 +64,19 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
     private class NetworkTask extends AsyncTask<Void, Void, UserInfo> {
         private String url;
         private ContentValues values;
+        ProgressDialog spinnerDialog = new ProgressDialog(UserInfoEditActivity.this);
 
         public NetworkTask(String url, ContentValues values) {
             this.url = url;
             this.values = values;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            spinnerDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            spinnerDialog.setMessage("정보를 불러오는 중입니다.");
+            spinnerDialog.show();
         }
 
         @Override
@@ -81,6 +91,8 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         @Override
         protected void onPostExecute(UserInfo userInfo) {
             super.onPostExecute(userInfo);
+            spinnerDialog.dismiss();
+
             setUserInfo(userInfo);
             setEnables(false);
         }
@@ -144,15 +156,15 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
 
     private void updateUserInfo() {
         ContentValues params = new ContentValues();
-        params.put("action", "update");
-        params.put("userid", currentUserId);
-        params.put("id", eUserID.getText().toString());
-        params.put("password", eUserPassword.getText().toString());
-        params.put("name", eUserName.getText().toString());
-        params.put("email", eUserEmail.getText().toString());
-        params.put("account", eUserAccount.getText().toString());
-        params.put("carNumber", eUserCarNumber.getText().toString());
-        params.put("nfcid", eUserNFCID.getText().toString());
+        params.put("action",    "update");
+        params.put("userid",    currentUserId);
+        params.put("id",        eUserID         .getText().toString());
+        params.put("password",  eUserPassword   .getText().toString());
+        params.put("name",      eUserName       .getText().toString());
+        params.put("email",     eUserEmail      .getText().toString());
+        params.put("account",   eUserAccount    .getText().toString());
+        params.put("carNumber", eUserCarNumber  .getText().toString());
+        params.put("nfcid",     eUserNFCID      .getText().toString());
 
         NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
         getUserInfoTask.execute();
