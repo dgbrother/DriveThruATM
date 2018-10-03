@@ -16,14 +16,14 @@
         android:layout_height="150dp"
         android:layout_weight="1"
         android:text="예약하기"
-        android:id="@+id/reserve"/>
+        android:id="@+id/reserveBtn"/>
 
     <Button
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_weight="1"
         android:text="예약조회"
-        android:id="@+id/search"/>
+        android:id="@+id/searchBtn"/>
 
 </LinearLayout>
 
@@ -39,14 +39,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="회원 정보수정"
-            android:id="@+id/user_edit"/>
+            android:id="@+id/user_editBtn"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="로그아웃"
-            android:id="@+id/logout"/>
+            android:id="@+id/logoutBtn"/>
 
     </LinearLayout>
 
