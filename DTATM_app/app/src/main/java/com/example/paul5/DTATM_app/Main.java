@@ -28,7 +28,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.reserveBtn :
-                Intent intent = new Intent(Main.this, Reserve.class);
+                Intent intent = new Intent(Main.this, ReservationMainActivity.class);
                 startActivity(intent);
                 break;
             case R.id.searchBtn :
