@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,13 +18,27 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
+    SharedPreferences appData;
     EditText idText;
     EditText pwText;
+    String inputUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+
+        /**
+         * 앱 내부에 "appData"라는 파일을 만들고 DB 처럼 사용
+         * 이미 appData 파일이 있을 경우 있는 파일에 대한 정보를 가져옴
+         */
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
+
+        /**
+         * appData에서 정보를 가져올 때는 ex) 현재 로그인 한 유저 ID
+         * String currnetId =
+         *      appData.getString("currentUserId", "저장된 값이 없을 경우 반환되는 값");
+         */
 
         Button confirmBtn = findViewById(R.id.confirm);
         idText = findViewById(R.id.id);
@@ -54,6 +69,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         params.put("action", "login");
         params.put("inputId", idText.getText().toString());
         params.put("inputPassword", pwText.getText().toString());
+        inputUserId = idText.getText().toString();
 
         NetworkTask loginCheckTask = new NetworkTask(SERVER_URL, params);
         loginCheckTask.execute();
@@ -89,8 +105,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             JSONObject jsonResult = requestHttpURLConnection.request(url, values);
 
-            // whadkjfdsjlkdsajlkdsfajkldfsajlkfdsalkjdsa
-
             /**
              * 넘어오는 JSON 형식
              * | JSONObject ========================|
@@ -114,12 +128,25 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             spinnerDialog.dismiss();
 
             if (isConfirm) {
+                saveCurrentUserID();
+
                 Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);
+                finish();
             }
             else {
                 Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void saveCurrentUserID() {
+        /**
+         * SharedPreferences 정보의 수정은 반드시 Editor를 사용해야 함.
+         * 수정 후 apply() 해야 수정된 정보가 저장됨.
+         */
+        SharedPreferences.Editor editor = appData.edit();
+        editor.putString("currentUserId", inputUserId);
+        editor.apply();
     }
 }
