@@ -14,14 +14,18 @@
         <activity android:name=".ReservationMainActivity" />
         <activity android:name=".ReservationAddActivity" />
         <activity android:name=".Login">
+
+        </activity>
+        <activity android:name=".Main" />
+        <activity android:name=".UserInfoEditActivity" />
+        <activity android:name=".Reserve"></activity>
+        <activity android:name=".SubActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Main" />
-        <activity android:name=".UserInfoEditActivity" />
 
     </application>
 
