@@ -48,7 +48,7 @@ public class ReservationAddActivity extends AppCompatActivity implements View.On
         SelectedItems.add(defaultItem);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("AlertDialog Title");
+        builder.setTitle("예약할 업무를 선택해주세요.");
         builder.setSingleChoiceItems(items, defaultItem,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -67,7 +67,7 @@ public class ReservationAddActivity extends AppCompatActivity implements View.On
                             msg = ListItems.get(index);
                         }
                         Toast.makeText(getApplicationContext(),
-                                "Items Selected.\n"+ msg , Toast.LENGTH_LONG)
+                                 msg + "이 선택되었습니다." , Toast.LENGTH_LONG)
                                 .show();
                     }
                 });
