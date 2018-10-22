@@ -22,17 +22,17 @@ public class ReservationMainActivity extends AppCompatActivity implements View.O
         backBtn.setOnClickListener(this);
         logoutBtn.setOnClickListener(this);
 
-        adapter = new ListViewAdapter();
-        adapter.addItem("name");
-        ListView listview = findViewById(R.id.reservation_list);
-        listview.setAdapter(adapter);
+//        adapter = new ListViewAdapter();
+//        adapter.addItem("name");
+//        ListView listview = findViewById(R.id.reservation_list);
+//        listview.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.addworkbutton:
-                Intent intent = new Intent(ReservationMainActivity.this, ReservationAddActivity.class);
+                Intent intent = new Intent(ReservationMainActivity.this, SubActivity.class);
                 startActivity(intent);
                 break;
             case R.id.backBtn:

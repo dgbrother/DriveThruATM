@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/fragment_send"
     >
 
     <TextView
@@ -17,6 +18,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
+        android:id="@+id/spinner_account"
         >
 
     </Spinner>
@@ -34,6 +36,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
+        android:id="@+id/send_account"
         />
 
     <TextView
@@ -41,7 +44,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:text="보낼 금액 입력"
+        android:text="송금할 금액 입력"
         />
 
     <LinearLayout
@@ -56,6 +59,7 @@
             android:layout_weight="1"
             android:inputType="number"
             android:gravity="center_vertical"
+            android:id="@+id/input_amount"
             />
 
         <TextView
