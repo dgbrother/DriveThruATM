@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.main);
 
         appData = getSharedPreferences("appData", MODE_PRIVATE);
+        Log.d("hello", appData.getAll().toString());
 
         Button reserveBtn = findViewById(R.id.reserveBtn);
         Button searchBtn = findViewById(R.id.searchBtn);
@@ -27,7 +29,7 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         usereditBtn.setOnClickListener(this);
         logoutBtn.setOnClickListener(this);
 
-        Toast.makeText(getApplicationContext(), "login: "+appData.getString("currentUserId","none"), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "login: "+appData.getString("id","none"), Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -58,7 +60,12 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
 
     private void deleteCurrentUserId() {
         SharedPreferences.Editor editor = appData.edit();
-        editor.remove("currentUserId");
+        editor.remove("id");
+        editor.remove("password");
+        editor.remove("email");
+        editor.remove("account");
+        editor.remove("carNumber");
+        editor.remove("nfcId");
         editor.apply();
     }
 }
