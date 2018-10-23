@@ -90,7 +90,8 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             JSONObject jsonResult = requestHttpURLConnection.request(url, values);
 
-            UserInfo userInfo = jsonToUserInfo(jsonResult);
+            UserInfo userInfo = UserInfo.jsonToUserInfo(jsonResult);
+            saveCurrentUser(jsonResult);
             return userInfo;
         }
 
@@ -102,24 +103,6 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
             setUserInfo(userInfo);
             setEnables(false);
         }
-    }
-
-    private UserInfo jsonToUserInfo(JSONObject jsonObject) {
-        try {
-            UserInfo userInfo = new UserInfo(
-                    jsonObject.getString("name"),
-                    jsonObject.getString("id"),
-                    jsonObject.getString("password"),
-                    jsonObject.getString("email"),
-                    jsonObject.getString("account"),
-                    jsonObject.getString("carnumber"),
-                    jsonObject.getString("nfc")
-            );
-            return userInfo;
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     // 유저 정보 수정
@@ -183,5 +166,25 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         eUserAccount    .setEnabled(enables);
         eUserCarNumber  .setEnabled(enables);
         eUserNFCID      .setEnabled(enables);
+    }
+
+    private void saveCurrentUser(JSONObject jsonObject) {
+        /**
+         * SharedPreferences 정보의 수정은 반드시 Editor를 사용해야 함.
+         * 수정 후 apply() 해야 수정된 정보가 저장됨.
+         */
+        try {
+            SharedPreferences.Editor editor = appData.edit();
+            editor.putString("id",          jsonObject.getString("id"));
+            editor.putString("name",        jsonObject.getString("name"));
+            editor.putString("password",    jsonObject.getString("password"));
+            editor.putString("email",       jsonObject.getString("email"));
+            editor.putString("account",     jsonObject.getString("account"));
+            editor.putString("carNumber",   jsonObject.getString("carnumber"));
+            editor.putString("nfcId",       jsonObject.getString("nfc"));
+            editor.apply();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
