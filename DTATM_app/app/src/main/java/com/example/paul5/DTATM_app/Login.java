@@ -64,10 +64,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
          * ID : ID1234
          * PW : PW1234!!
          */
-        String SERVER_URL = "http://35.200.117.1:8080/login.jsp";
+        String SERVER_URL = "http://35.200.117.1:8080/control.jsp";
         ContentValues params = new ContentValues();
-        params.put("action", "login");
-        params.put("inputId", idText.getText().toString());
+        params.put("type",  "user");
+        params.put("action","login");
+        params.put("inputId",       idText.getText().toString());
         params.put("inputPassword", pwText.getText().toString());
         inputUserId = idText.getText().toString();
 
@@ -114,10 +115,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             String isConfirm = "";
             try {
                 isConfirm = jsonResult.getString("isConfirm");
+                if(isConfirm.equals("true"))
+                    saveCurrentUser(jsonResult);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-
             // isConfirm 값이 "true"이면 true 반환
             return isConfirm.equals("true");
         }
@@ -128,8 +130,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             spinnerDialog.dismiss();
 
             if (isConfirm) {
-                saveCurrentUserID();
-
                 Intent intent = new Intent(Login.this, Main.class);
                 startActivity(intent);
                 finish();
@@ -140,13 +140,22 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-    private void saveCurrentUserID() {
+    private void saveCurrentUser(JSONObject jsonObject) {
         /**
          * SharedPreferences 정보의 수정은 반드시 Editor를 사용해야 함.
          * 수정 후 apply() 해야 수정된 정보가 저장됨.
          */
-        SharedPreferences.Editor editor = appData.edit();
-        editor.putString("currentUserId", inputUserId);
-        editor.apply();
+        try {
+            SharedPreferences.Editor editor = appData.edit();
+            editor.putString("id", jsonObject.getString("name"));
+            editor.putString("password", jsonObject.getString("password"));
+            editor.putString("email", jsonObject.getString("email"));
+            editor.putString("account", jsonObject.getString("account"));
+            editor.putString("carNumber", jsonObject.getString("carnumber"));
+            editor.putString("nfcId", jsonObject.getString("nfc"));
+            editor.apply();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
