@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class UserInfoEditActivity extends AppCompatActivity implements View.OnClickListener {
-    private final String SERVER_URL = "http://35.200.117.1:8080/user_info.jsp";
+    private final String SERVER_URL = "http://35.200.117.1:8080/control.jsp";
     EditText eUserName, eUserID, eUserPassword, eUserEmail;
     EditText eUserAccount, eUserCarNumber, eUserNFCID;
     Button editButton, okButton;
@@ -42,8 +40,9 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         currentUserId = "ID1234";
 
         ContentValues params = new ContentValues();
+        params.put("type","user");
         params.put("action", "select");
-        params.put("userid", currentUserId);
+        params.put("userId", currentUserId);
 
         NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
         getUserInfoTask.execute();
@@ -100,17 +99,14 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
 
     private UserInfo jsonToUserInfo(JSONObject jsonObject) {
         try {
-            JSONArray jsonArray = jsonObject.getJSONArray("data");
-            JSONObject jobj = jsonArray.getJSONObject(0);
-
             UserInfo userInfo = new UserInfo(
-                    jobj.getString("name"),
-                    jobj.getString("id"),
-                    jobj.getString("password"),
-                    jobj.getString("email"),
-                    jobj.getString("account"),
-                    jobj.getString("carnumber"),
-                    jobj.getString("nfc")
+                    jsonObject.getString("name"),
+                    jsonObject.getString("id"),
+                    jsonObject.getString("password"),
+                    jsonObject.getString("email"),
+                    jsonObject.getString("account"),
+                    jsonObject.getString("carnumber"),
+                    jsonObject.getString("nfc")
             );
             return userInfo;
         } catch (JSONException e) {
@@ -156,15 +152,16 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
 
     private void updateUserInfo() {
         ContentValues params = new ContentValues();
+        params.put("type",      "user");
         params.put("action",    "update");
-        params.put("userid",    currentUserId);
+        params.put("userId",    currentUserId);
         params.put("id",        eUserID         .getText().toString());
         params.put("password",  eUserPassword   .getText().toString());
         params.put("name",      eUserName       .getText().toString());
         params.put("email",     eUserEmail      .getText().toString());
         params.put("account",   eUserAccount    .getText().toString());
         params.put("carNumber", eUserCarNumber  .getText().toString());
-        params.put("nfcid",     eUserNFCID      .getText().toString());
+        params.put("nfcId",     eUserNFCID      .getText().toString());
 
         NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
         getUserInfoTask.execute();

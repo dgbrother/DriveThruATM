@@ -1,9 +1,7 @@
 package com.example.paul5.DTATM_app;
 
 import android.content.ContentValues;
-
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -17,7 +15,6 @@ public class RequestHttpURLConnection {
     public JSONObject request(String _url, ContentValues params) {
         HttpURLConnection urlConn = null;
         StringBuffer sbParams = new StringBuffer();
-
         if(params == null) {
             sbParams.append("");
         }
@@ -57,7 +54,6 @@ public class RequestHttpURLConnection {
 
             if(urlConn.getResponseCode() != HttpURLConnection.HTTP_OK)
                 return null;
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(urlConn.getInputStream(), "UTF-8"));
 
             String line;
