@@ -18,7 +18,6 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.main);
 
         appData = getSharedPreferences("appData", MODE_PRIVATE);
-        Log.d("hello", appData.getAll().toString());
 
         Button reserveBtn = findViewById(R.id.reserveBtn);
         Button searchBtn = findViewById(R.id.searchBtn);

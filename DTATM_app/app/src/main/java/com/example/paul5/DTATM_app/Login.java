@@ -33,7 +33,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
          * 이미 appData 파일이 있을 경우 있는 파일에 대한 정보를 가져옴
          */
         appData = getSharedPreferences("appData", MODE_PRIVATE);
-
+        String savedId = appData.getString("id","none");
+        if(!savedId.equals("none")) {
+            loginConrifm(true);
+        }
         /**
          * appData에서 정보를 가져올 때는 ex) 현재 로그인 한 유저 ID
          * String currnetId =
@@ -56,14 +59,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void Id_confirm () {
-        /**
-         * SERVER_URL : Login 관련 기능을 수행하는 jsp 주소
-         * action : login (지금은 login 밖에 없음. 추후 필요한 기능 추가예정)
-         * inputId와 inputPassword Parameter로 입력받은 ID, Password 전달
-         * 로그인 가능 ID/PW
-         * ID : ID1234
-         * PW : PW1234!!
-         */
         String SERVER_URL = "http://35.200.117.1:8080/control.jsp";
         ContentValues params = new ContentValues();
         params.put("type",  "user");
@@ -74,6 +69,17 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 
         NetworkTask loginCheckTask = new NetworkTask(SERVER_URL, params);
         loginCheckTask.execute();
+    }
+
+    private void loginConrifm(boolean isConfirm) {
+        if (isConfirm) {
+            Intent intent = new Intent(Login.this, Main.class);
+            startActivity(intent);
+            finish();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
@@ -106,12 +112,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             JSONObject jsonResult = requestHttpURLConnection.request(url, values);
 
-            /**
-             * 넘어오는 JSON 형식
-             * | JSONObject ========================|
-             * |    isConfirm: "true" or "false"    |
-             * =====================================|
-             */
             String isConfirm = "";
             try {
                 isConfirm = jsonResult.getString("isConfirm");
@@ -120,7 +120,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            // isConfirm 값이 "true"이면 true 반환
             return isConfirm.equals("true");
         }
 
@@ -129,14 +128,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             super.onPostExecute(isConfirm);
             spinnerDialog.dismiss();
 
-            if (isConfirm) {
-                Intent intent = new Intent(Login.this, Main.class);
-                startActivity(intent);
-                finish();
-            }
-            else {
-                Toast.makeText(getApplicationContext(), "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-            }
+            loginConrifm(isConfirm);
         }
     }
 
@@ -147,12 +139,13 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
          */
         try {
             SharedPreferences.Editor editor = appData.edit();
-            editor.putString("id", jsonObject.getString("name"));
-            editor.putString("password", jsonObject.getString("password"));
-            editor.putString("email", jsonObject.getString("email"));
-            editor.putString("account", jsonObject.getString("account"));
-            editor.putString("carNumber", jsonObject.getString("carnumber"));
-            editor.putString("nfcId", jsonObject.getString("nfc"));
+            editor.putString("id",          jsonObject.getString("id"));
+            editor.putString("name",        jsonObject.getString("name"));
+            editor.putString("password",    jsonObject.getString("password"));
+            editor.putString("email",       jsonObject.getString("email"));
+            editor.putString("account",     jsonObject.getString("account"));
+            editor.putString("carNumber",   jsonObject.getString("carnumber"));
+            editor.putString("nfcId",       jsonObject.getString("nfc"));
             editor.apply();
         } catch (JSONException e) {
             e.printStackTrace();

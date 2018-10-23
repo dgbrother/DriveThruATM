@@ -2,6 +2,7 @@ package com.example.paul5.DTATM_app;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import org.json.JSONObject;
 
 public class UserInfoEditActivity extends AppCompatActivity implements View.OnClickListener {
     private final String SERVER_URL = "http://35.200.117.1:8080/control.jsp";
+    SharedPreferences appData;
     EditText eUserName, eUserID, eUserPassword, eUserEmail;
     EditText eUserAccount, eUserCarNumber, eUserNFCID;
     Button editButton, okButton;
@@ -22,6 +24,8 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_edit);
+
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
 
         eUserName       = findViewById(R.id.userInfo_userName_editText);
         eUserID         = findViewById(R.id.userInfo_userId_editText);
@@ -36,16 +40,19 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
         editButton      .setOnClickListener(this);
         okButton        .setOnClickListener(this);
 
-        // 원래는 로그인 정보 가져옴
-        currentUserId = "ID1234";
+        currentUserId = appData.getString("id","ID1234");
 
-        ContentValues params = new ContentValues();
-        params.put("type","user");
-        params.put("action", "select");
-        params.put("userId", currentUserId);
-
-        NetworkTask getUserInfoTask = new NetworkTask(SERVER_URL, params);
-        getUserInfoTask.execute();
+        UserInfo userInfo = new UserInfo(
+                appData.getString("name", "error"),
+                appData.getString("id", ""),
+                appData.getString("password", ""),
+                appData.getString("email", ""),
+                appData.getString("account", ""),
+                appData.getString("carNumber", ""),
+                appData.getString("nfcId", "")
+        );
+        setUserInfo(userInfo);
+        setEnables(false);
     }
 
     @Override
