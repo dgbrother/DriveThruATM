@@ -1,5 +1,8 @@
 package com.example.paul5.DTATM_app;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserInfo {
     String name;
     String id;
@@ -17,6 +20,24 @@ public class UserInfo {
         this.account = account;
         this.carNumber = carNumber;
         this.nfcId = nfcId;
+    }
+
+    public static UserInfo jsonToUserInfo(JSONObject jsonObject) {
+        try {
+            UserInfo userInfo = new UserInfo(
+                    jsonObject.getString("name"),
+                    jsonObject.getString("id"),
+                    jsonObject.getString("password"),
+                    jsonObject.getString("email"),
+                    jsonObject.getString("account"),
+                    jsonObject.getString("carnumber"),
+                    jsonObject.getString("nfc")
+            );
+            return userInfo;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getName() {
