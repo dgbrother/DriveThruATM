@@ -15,13 +15,15 @@
         <activity android:name=".DialogSample" />
         <activity android:name=".Login" />
         <activity android:name=".Main" />
-        <activity android:name=".UserInfoEditActivity" />
-        <activity android:name=".SubActivity">
+        <activity android:name=".UserInfoEditActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".SubActivity">
+
         </activity>
 
     </application>
