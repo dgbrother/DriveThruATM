@@ -2,10 +2,12 @@ package com.example.paul5.DTATM_app.fragment;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +20,25 @@ import android.widget.Toast;
 import com.example.paul5.DTATM_app.R;
 import com.example.paul5.DTATM_app.SendInfo;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.widget.AdapterView.*;
 
 public class ReserveSend extends Fragment {
     String selected;
     EditText eSendAccount, eSendAmount;
+    String MyAccount;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+            MyAccount = getArguments().getString("account");
+    }
 
     //송금하기
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_reserve_send, container, false);
-        String[] accounts = {"508-11-052127-2", "508-11-123456-7"};
 
         final Spinner AccountSpinner = (Spinner) v.findViewById(R.id.spinner_account);
         AccountSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -45,7 +55,7 @@ public class ReserveSend extends Fragment {
         ArrayAdapter<String> spinneradapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_item);
         spinneradapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         AccountSpinner.setAdapter(spinneradapter);
-        spinneradapter.addAll(accounts);
+        spinneradapter.addAll(MyAccount);
 
         eSendAccount = v.findViewById(R.id.send_account);
         eSendAmount = v.findViewById(R.id.input_amount);

@@ -34,8 +34,15 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
         TextView businessName = convertView.findViewById(R.id.businessname);
+        TextView sendAccount = convertView.findViewById(R.id.sendAccount);
+        TextView amount = convertView.findViewById(R.id.amount);
+
         ReservationWork item = listViewItemList.get(position);
+
         businessName.setText(item.getBusinessName());
+        sendAccount.setText(item.getSendAccount());
+        amount.setText(item.getAmount());
+
 
 /////////////////////////////
 ////// 삭제버튼 시도중 //////
@@ -48,19 +55,19 @@ public class ListViewAdapter extends BaseAdapter {
                 ad.setTitle("★★삭제 재확인★★");       // 삭제 다이얼로그 제목 설정
                 ad.setMessage("정말 삭제하시겠습니까?");   // 삭제 다이얼로그 내용 설정
 
-                ad.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                ad.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("testing","예 누름 => 삭제되야함");
+                        Log.d("testing","아니오 누름 => 삭제 안되야함");
                         dialog.dismiss();     //닫기
                         // Event
                     }
                 });
 
-                ad.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                ad.setNegativeButton("예", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Log.d("testing","아니오 누름 => 삭제안되야함");
+                        Log.d("testing","예 누름 => 삭제 되야함");
                         dialog.dismiss();     //닫기
                         // Event
                     }
@@ -86,9 +93,7 @@ public class ListViewAdapter extends BaseAdapter {
         return listViewItemList.size();
     }
 
-    public void addItem(String name) {
-        ReservationWork work = new ReservationWork();
-        work.setBusinessName(name);
-        listViewItemList.add(work);
+    public void addItem(ReservationWork RW) {
+        listViewItemList.add(RW);
     }
 }
