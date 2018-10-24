@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,10 +20,19 @@ import com.example.paul5.DTATM_app.fragment.ReserveSend;
 import com.example.paul5.DTATM_app.fragment.ReserveWithdraw;
 
 public class SubActivity extends AppCompatActivity implements View.OnClickListener {
+    SharedPreferences appData;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
+        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        String account = appData.getString("account", null);
+
+        Fragment fragmentTransmit = new Fragment();
+        Bundle bundle = new Bundle(1);
+        bundle.putString("account", account);
+        fragmentTransmit.setArguments(bundle);
 
         findViewById(R.id.reserve_send_button)      .setOnClickListener(this);
         findViewById(R.id.reserve_withdraw_button)  .setOnClickListener(this);
