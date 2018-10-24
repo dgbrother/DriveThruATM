@@ -14,6 +14,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.paul5.DTATM_app.fragment.ReserveWithdraw;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,9 +88,7 @@ public class ListViewAdapter extends BaseAdapter {
         return listViewItemList.size();
     }
 
-    public void addItem(String name) {
-        ReservationWork work = new ReservationWork();
-        work.setBusinessName(name);
+    public void addItem(ReservationWork work) {
         listViewItemList.add(work);
     }
 }

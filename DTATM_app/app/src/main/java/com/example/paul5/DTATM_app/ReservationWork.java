@@ -8,8 +8,27 @@ public class ReservationWork {
     private String myAccount;
     private String sendAccount;
     private String id;
-    private String type;
     private String isdone;
+
+    public ReservationWork() {
+        businessName = "-";
+        amount = "-";
+        carnumber = "-";
+        myAccount = "-";
+        sendAccount = "-";
+        id = "-";
+        isdone = "-";
+    }
+
+    public ReservationWork(String businessName, String amount, String carnumber, String myAccount, String sendAccount, String id, String type, String isdone) {
+        this.businessName = businessName;
+        this.amount = amount;
+        this.carnumber = carnumber;
+        this.myAccount = myAccount;
+        this.sendAccount = sendAccount;
+        this.id = id;
+        this.isdone = isdone;
+    }
 
     public String getCarnumber() {
         return carnumber;
@@ -43,14 +62,6 @@ public class ReservationWork {
         this.id = id;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getIsdone() {
         return isdone;
     }
@@ -58,8 +69,6 @@ public class ReservationWork {
     public void setIsdone(String isdone) {
         this.isdone = isdone;
     }
-
-
 
     public String getAmount() {
         return amount;
