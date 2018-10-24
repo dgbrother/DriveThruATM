@@ -39,8 +39,8 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.searchBtn :
-//                Intent intent2 = new Intent(Main.this, ReserveList.class);
-//                startActivity(intent2);
+                Intent intent2 = new Intent(Main.this, ReserveList.class);
+                startActivity(intent2);
                 break;
             case R.id.user_editBtn :
                 Intent intent3 = new Intent(Main.this, UserInfoEditActivity.class);

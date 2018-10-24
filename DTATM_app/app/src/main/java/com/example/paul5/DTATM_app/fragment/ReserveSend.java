@@ -2,10 +2,12 @@ package com.example.paul5.DTATM_app.fragment;
 
 import android.accounts.Account;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +21,20 @@ import com.example.paul5.DTATM_app.R;
 import com.example.paul5.DTATM_app.ReservationWork;
 import com.example.paul5.DTATM_app.SendInfo;
 
+import static android.content.Context.MODE_PRIVATE;
 import static android.widget.AdapterView.*;
 
 public class ReserveSend extends Fragment {
     String selected;
     EditText eSendAccount, eSendAmount;
+    String MyAccount;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null)
+            MyAccount = getArguments().getString("account");
+    }
 
     public static ReserveSend newInstance(String account) {
         ReserveSend reserveSend = new ReserveSend();
@@ -35,7 +46,7 @@ public class ReserveSend extends Fragment {
 
     //송금하기
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_reserve_send, container, false);
         String[] account = new String[1];
         if(getArguments() != null) {
