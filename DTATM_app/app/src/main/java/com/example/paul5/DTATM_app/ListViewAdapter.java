@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +18,6 @@ public class ListViewAdapter extends BaseAdapter {
     private ArrayList<ReservationWork> listViewItemList = new ArrayList<>();
 
     public ListViewAdapter() {
-        // 데이터 가져오기
     }
 
     @Override
@@ -29,48 +29,27 @@ public class ListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.reserve_main_listitem, parent, false);
         }
 
-        TextView businessName = convertView.findViewById(R.id.businessname);
-        TextView sendAccount = convertView.findViewById(R.id.sendAccount);
-        TextView amount = convertView.findViewById(R.id.amount);
+        TextView no         = convertView.findViewById(R.id.no);
+        TextView type       = convertView.findViewById(R.id.type);
+        TextView srcAccount = convertView.findViewById(R.id.src_account);
+        TextView dstAccount = convertView.findViewById(R.id.dst_account);
+        TextView amount     = convertView.findViewById(R.id.amount);
 
         ReservationWork item = listViewItemList.get(position);
 
-        businessName.setText(item.getBusinessName());
-        sendAccount.setText(item.getSendAccount());
-        amount.setText(item.getAmount());
+        String bankingType = item.getType();
+        switch(bankingType) {
+            case "send"     : bankingType = "송금"; break;
+            case "withdraw" : bankingType = "출금"; break;
+            case "deposit"  : bankingType = "입금"; break;
+        }
+        
+        no          .setText(item.getNo());
+        type        .setText(bankingType);
+        srcAccount  .setText(item.getSrcAccount());
+        dstAccount  .setText(item.getDstAccount());
+        amount      .setText(item.getAmount());
 
-
-/////////////////////////////
-////// 삭제버튼 시도중 //////
-/////////////////////////////
-        Button deleteBtn = (Button) convertView.findViewById(R.id.delete_button);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder ad = new AlertDialog.Builder(context);
-                ad.setTitle("★★삭제 재확인★★");       // 삭제 다이얼로그 제목 설정
-                ad.setMessage("정말 삭제하시겠습니까?");   // 삭제 다이얼로그 내용 설정
-
-                ad.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("testing","아니오 누름 => 삭제 안되야함");
-                        dialog.dismiss();     //닫기
-                        // Event
-                    }
-                });
-
-                ad.setNegativeButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Log.d("testing","예 누름 => 삭제 되야함");
-                        dialog.dismiss();     //닫기
-                        // Event
-                    }
-                });
-                ad.show();
-            }
-        });
         return convertView;
     }
 
@@ -92,4 +71,7 @@ public class ListViewAdapter extends BaseAdapter {
     public void addItem(ReservationWork RW) {
         listViewItemList.add(RW);
     }
+
+    public String getNo(int position) { return listViewItemList.get(position).getNo(); }
+
 }

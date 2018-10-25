@@ -91,23 +91,23 @@ public class ReservationAdd extends AppCompatActivity implements View.OnClickLis
     private ReservationWork getReservationWork(Fragment currentFragment, String type) {
         ReservationWork work = new ReservationWork();
         work.setId          (appData.getString("id", "none"));
-        work.setMyAccount   (appData.getString("account", "none"));
-        work.setCarnumber   (appData.getString("carNumber","none"));
+        work.setSrcAccount  (appData.getString("account", "none"));
+        work.setCarNumber   (appData.getString("carNumber","none"));
 
         switch(type) {
             case "send":
                 Send sendFragment = (Send)currentFragment;
-                work.setBusinessName("send");
+                work.setType("send");
                 work = sendFragment.getSendInfo(work);
                 break;
             case "withdraw":
                 Withdraw withdrawFragment = (Withdraw)currentFragment;
-                work.setBusinessName("withdraw");
+                work.setType("withdraw");
                 work = withdrawFragment.getWithdrawInfo(work);
                 break;
             case "deposit":
                 Deposit depositFragment = (Deposit)currentFragment;
-                work.setBusinessName("deposit");
+                work.setType("deposit");
                 work = depositFragment.getDepositInfo(work);
                 break;
         }
@@ -138,11 +138,11 @@ public class ReservationAdd extends AppCompatActivity implements View.OnClickLis
         ContentValues params = new ContentValues();
         params.put("type",          "reservation");
         params.put("action",        "insert");
-        params.put("bankingType",   work.getBusinessName());
+        params.put("bankingType",   work.getType());
         params.put("id",            work.getId());
-        params.put("carNumber",     work.getCarnumber());
-        params.put("src_account",   work.getMyAccount());
-        params.put("dst_account",   work.getSendAccount());
+        params.put("carNumber",     work.getCarNumber());
+        params.put("src_account",   work.getSrcAccount());
+        params.put("dst_account",   work.getDstAccount());
         params.put("amount",        work.getAmount());
 
         return params;

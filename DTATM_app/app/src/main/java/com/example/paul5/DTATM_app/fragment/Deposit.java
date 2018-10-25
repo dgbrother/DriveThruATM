@@ -56,7 +56,7 @@ public class Deposit extends Fragment {
 
     public ReservationWork getDepositInfo(ReservationWork work) {
         final String Info_selected = this.selected;
-        work.setMyAccount(Info_selected);
+        work.setSrcAccount(Info_selected);
         return work;
     }
 }

@@ -10,34 +10,34 @@ import java.util.ArrayList;
 
 public class ReservationWork {
     // 리스트뷰에 들어갈 업무 내역 부분
-    private String businessName;
-    private String amount;
-    private String carnumber;
-    private String myAccount;
-    private String sendAccount;
-    private String id;
+    private String no;
     private String type;
+    private String id;
+    private String carNumber;
+    private String srcAccount;
+    private String dstAccount;
+    private String amount;
     private String isdone;
 
     public ReservationWork() {
-        this.businessName = "-";
-        this.amount = "-";
-        this.carnumber = "-";
-        this.myAccount = "-";
-        this.sendAccount = "-";
-        this.id = "-";
+        this.no = "-";
         this.type = "-";
+        this.id = "-";
+        this.carNumber = "-";
+        this.srcAccount = "-";
+        this.dstAccount = "-";
+        this.amount = "-";
         this.isdone = "-";
     }
 
-    public ReservationWork(String businessName, String amount, String carnumber, String myAccount, String sendAccount, String id, String type, String isdone ) {
-        this.businessName = businessName;
-        this.amount = amount;
-        this.carnumber = carnumber;
-        this.myAccount = myAccount;
-        this.sendAccount = sendAccount;
-        this.id = id;
+    public ReservationWork(String no, String type, String id, String carNumber, String srcAccount, String sendAccount, String amount, String isdone) {
+        this.no = no;
         this.type = type;
+        this.id = id;
+        this.carNumber = carNumber;
+        this.srcAccount = srcAccount;
+        this.dstAccount = sendAccount;
+        this.amount = amount;
         this.isdone = isdone;
     }
 
@@ -48,13 +48,13 @@ public class ReservationWork {
             for (int i = 0; i < jarray.length(); i++) {
                 JSONObject jsonObject = jarray.getJSONObject(i);  // JSONObject 추출
                 ReservationWork reserveInfo = new ReservationWork(
+                        jsonObject.getString("no"),
                         jsonObject.getString("type"),
-                        jsonObject.getString("amount"),
+                        jsonObject.getString("id"),
                         jsonObject.getString("carnumber"),
                         jsonObject.getString("src_account"),
                         jsonObject.getString("dst_account"),
-                        jsonObject.getString("id"),
-                        jsonObject.getString("type"),
+                        jsonObject.getString("amount"),
                         jsonObject.getString("isdone")
                 );
                 reservationWorks.add(reserveInfo);
@@ -66,28 +66,36 @@ public class ReservationWork {
         return null;
     }
 
-    public String getCarnumber() {
-        return carnumber;
+    public String getNo() {
+        return no;
     }
 
-    public void setCarnumber(String carnumber) {
-        this.carnumber = carnumber;
+    public void setNo(String no) {
+        this.no = no;
     }
 
-    public String getMyAccount() {
-        return myAccount;
+    public String getCarNumber() {
+        return carNumber;
     }
 
-    public void setMyAccount(String myAccount) {
-        this.myAccount = myAccount;
+    public void setCarNumber(String carNumber) {
+        this.carNumber = carNumber;
     }
 
-    public String getSendAccount() {
-        return sendAccount;
+    public String getSrcAccount() {
+        return srcAccount;
     }
 
-    public void setSendAccount(String sendAccount) {
-        this.sendAccount = sendAccount;
+    public void setSrcAccount(String srcAccount) {
+        this.srcAccount = srcAccount;
+    }
+
+    public String getDstAccount() {
+        return dstAccount;
+    }
+
+    public void setDstAccount(String dstAccount) {
+        this.dstAccount = dstAccount;
     }
 
     public String getId() {
@@ -122,11 +130,4 @@ public class ReservationWork {
         this.amount = amount;
     }
 
-    public void setBusinessName(String businessName) {
-        this.businessName = businessName;
-    }
-
-    public String getBusinessName() {
-        return businessName;
-    }
 }

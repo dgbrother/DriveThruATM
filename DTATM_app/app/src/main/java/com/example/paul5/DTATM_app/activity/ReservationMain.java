@@ -1,13 +1,16 @@
 package com.example.paul5.DTATM_app.activity;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.paul5.DTATM_app.ListViewAdapter;
@@ -19,10 +22,11 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ReservationMain extends AppCompatActivity implements View.OnClickListener{
+public class ReservationMain extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
     private ListViewAdapter adapter;
     private String url = "http://35.200.117.1:8080/control.jsp";
     private ContentValues params;
+    private String currentUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,14 +37,15 @@ public class ReservationMain extends AppCompatActivity implements View.OnClickLi
         findViewById(R.id.backBtn)      .setOnClickListener(this);
         findViewById(R.id.logoutBtn)    .setOnClickListener(this);
 
+
         SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE);
-        adapter = new ListViewAdapter();
+        currentUserId = appData.getString("id","ID1234");
 
         params = new ContentValues();
         params.put("type",      "reservation");
         params.put("action",    "select");
         params.put("from",      "mobile");
-        params.put("userId",    appData.getString("id","ID1234"));
+        params.put("userId",    currentUserId);
 
         NetworkTask getReservationInfoTask = new NetworkTask(url, params);
         getReservationInfoTask.execute();
@@ -64,6 +69,30 @@ public class ReservationMain extends AppCompatActivity implements View.OnClickLi
         }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(ReservationMain.this);
+        builder.setTitle("예약 번호 : "+adapter.getNo(position));
+        builder.setMessage("정말 삭제하시겠습니까?");
+
+        builder.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builder.setNegativeButton("예", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                deleteReservation(adapter.getNo(position));
+            }
+        });
+
+        builder.show();
+    }
+
     public class NetworkTask extends AsyncTask<Void, Void, JSONObject> {
         private String url;
         private ContentValues values;
@@ -79,6 +108,7 @@ public class ReservationMain extends AppCompatActivity implements View.OnClickLi
             JSONObject result = requestHttpURLConnection.request(url, values);
 
             ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(result);
+            adapter = new ListViewAdapter();
             for (int i = 0; i < works.size(); i++)
                 adapter.addItem(works.get(i));
 
@@ -88,9 +118,21 @@ public class ReservationMain extends AppCompatActivity implements View.OnClickLi
         @Override
         protected void onPostExecute(JSONObject s) {
             super.onPostExecute(s);
-
             ListView listview = findViewById(R.id.reservation_list);
             listview.setAdapter(adapter);
+            listview.setOnItemClickListener(ReservationMain.this);
         }
+    }
+
+    private void deleteReservation(String no) {
+        ContentValues params = new ContentValues();
+        params.put("type",      "reservation");
+        params.put("action",    "update");
+        params.put("from",      "mobile");
+        params.put("userId",    currentUserId);
+        params.put("no",        no);
+
+        NetworkTask deleteReservationInfoTask = new NetworkTask(url, params);
+        deleteReservationInfoTask.execute();
     }
 }
