@@ -1,10 +1,9 @@
-package com.example.paul5.DTATM_app;
+package com.example.paul5.DTATM_app.activity;
 
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -12,16 +11,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.example.paul5.DTATM_app.fragment.ReserveDeposit;
-import com.example.paul5.DTATM_app.fragment.ReserveSend;
-import com.example.paul5.DTATM_app.fragment.ReserveWithdraw;
+import com.example.paul5.DTATM_app.R;
+import com.example.paul5.DTATM_app.RequestHttpURLConnection;
+import com.example.paul5.DTATM_app.ReservationWork;
+import com.example.paul5.DTATM_app.fragment.Deposit;
+import com.example.paul5.DTATM_app.fragment.Send;
+import com.example.paul5.DTATM_app.fragment.Withdraw;
 
-public class SubActivity extends AppCompatActivity implements View.OnClickListener {
+public class ReservationAdd extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences appData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sub);
+        setContentView(R.layout.reserve_add);
         appData = getSharedPreferences("appData", MODE_PRIVATE);
         String account = appData.getString("account", null);
 
@@ -41,7 +43,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fragment, new ReserveSend().newInstance(currentUserAccount));
+        transaction.add(R.id.fragment, new Send().newInstance(currentUserAccount));
         transaction.commit();
     }
 
@@ -63,13 +65,13 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
             case R.id.reserve_save:
                 Fragment CurrentFragment = getSupportFragmentManager().findFragmentById(R.id.fragment);
                 ReservationWork work = null;
-                if(CurrentFragment instanceof ReserveSend)
+                if(CurrentFragment instanceof Send)
                     work = getReservationWork(CurrentFragment, "send");
 
-                if(CurrentFragment instanceof ReserveWithdraw)
+                if(CurrentFragment instanceof Withdraw)
                     work = getReservationWork(CurrentFragment, "withdraw");
 
-                if(CurrentFragment instanceof ReserveDeposit)
+                if(CurrentFragment instanceof Deposit)
                     work = getReservationWork(CurrentFragment, "deposit");
 
                 String BASE_URL = "http://35.200.117.1:8080/control.jsp";
@@ -80,7 +82,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
                 break;
 
             case R.id.reserve_cancel:
-                Intent intent2 = new Intent(SubActivity.this, ReservationMainActivity.class);
+                Intent intent2 = new Intent(ReservationAdd.this, ReservationMain.class);
                 startActivity(intent2);
                 break;
         }
@@ -94,17 +96,17 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
 
         switch(type) {
             case "send":
-                ReserveSend sendFragment = (ReserveSend)currentFragment;
+                Send sendFragment = (Send)currentFragment;
                 work.setBusinessName("send");
                 work = sendFragment.getSendInfo(work);
                 break;
             case "withdraw":
-                ReserveWithdraw withdrawFragment = (ReserveWithdraw)currentFragment;
+                Withdraw withdrawFragment = (Withdraw)currentFragment;
                 work.setBusinessName("withdraw");
                 work = withdrawFragment.getWithdrawInfo(work);
                 break;
             case "deposit":
-                ReserveDeposit depositFragment = (ReserveDeposit)currentFragment;
+                Deposit depositFragment = (Deposit)currentFragment;
                 work.setBusinessName("deposit");
                 work = depositFragment.getDepositInfo(work);
                 break;
@@ -117,13 +119,13 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         String currentUserAccount = appData.getString("account", "none");
         switch (type) {
             case "send":
-                fragment = new ReserveSend().newInstance(currentUserAccount);
+                fragment = new Send().newInstance(currentUserAccount);
                 break;
             case "withdraw":
-                fragment = new ReserveWithdraw().newInstance(currentUserAccount);
+                fragment = new Withdraw().newInstance(currentUserAccount);
                 break;
             case "deposit":
-                fragment = new ReserveDeposit().newInstance(currentUserAccount);
+                fragment = new Deposit().newInstance(currentUserAccount);
                 break;
         }
         FragmentManager manager = getSupportFragmentManager();
@@ -146,7 +148,7 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         return params;
     }
 
-    public class NetworkTask extends AsyncTask<Void, Void, Void> {
+    public class NetworkTask extends AsyncTask<Void, Void, String> {
         private String url;
         private ContentValues values;
 
@@ -156,18 +158,18 @@ public class SubActivity extends AppCompatActivity implements View.OnClickListen
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected String doInBackground(Void... voids) {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             requestHttpURLConnection.request(url, values);
 
-            return voids[0];
+            return "ok";
         }
 
         @Override
-        protected void onPostExecute(Void voids) {
-            super.onPostExecute(voids);
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
 
-            Intent intent = new Intent(SubActivity.this, ReservationMainActivity.class);
+            Intent intent = new Intent(ReservationAdd.this, ReservationMain.class);
             startActivity(intent);
         }
     }

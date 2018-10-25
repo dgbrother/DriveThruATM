@@ -19,7 +19,18 @@ public class ReservationWork {
     private String type;
     private String isdone;
 
-    public ReservationWork(String businessName, String amount, String carnumber, String myAccount,String sendAccount, String id, String type, String isdone ) {
+    public ReservationWork() {
+        this.businessName = "-";
+        this.amount = "-";
+        this.carnumber = "-";
+        this.myAccount = "-";
+        this.sendAccount = "-";
+        this.id = "-";
+        this.type = "-";
+        this.isdone = "-";
+    }
+
+    public ReservationWork(String businessName, String amount, String carnumber, String myAccount, String sendAccount, String id, String type, String isdone ) {
         this.businessName = businessName;
         this.amount = amount;
         this.carnumber = carnumber;

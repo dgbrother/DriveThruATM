@@ -62,8 +62,6 @@ public class RequestHttpURLConnection {
             while((line = reader.readLine()) != null) {
                 page += line;
             }
-
-
             JSONObject jsonObject = new JSONObject(page);
             return jsonObject;
 

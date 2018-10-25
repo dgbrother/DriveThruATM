@@ -1,13 +1,15 @@
-package com.example.paul5.DTATM_app;
+package com.example.paul5.DTATM_app.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.paul5.DTATM_app.R;
 
 public class Main extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences appData;
@@ -18,32 +20,23 @@ public class Main extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.main);
 
         appData = getSharedPreferences("appData", MODE_PRIVATE);
+        TextView currentUserName = findViewById(R.id.main_user_name);
+        currentUserName.setText(appData.getString("name", "none"));
 
-        Button reserveBtn = findViewById(R.id.reserveBtn);
-        Button searchBtn = findViewById(R.id.searchBtn);
-        Button usereditBtn = findViewById(R.id.user_editBtn);
-        Button logoutBtn = findViewById(R.id.logoutBtn);
-        reserveBtn.setOnClickListener(this);
-        searchBtn.setOnClickListener(this);
-        usereditBtn.setOnClickListener(this);
-        logoutBtn.setOnClickListener(this);
-
-        Toast.makeText(getApplicationContext(), "login: "+appData.getString("id","none"), Toast.LENGTH_LONG).show();
+        findViewById(R.id.reserveBtn).setOnClickListener(this);
+        findViewById(R.id.user_editBtn).setOnClickListener(this);
+        findViewById(R.id.logoutBtn).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()) {
             case R.id.reserveBtn :
-                Intent intent = new Intent(Main.this, ReservationMainActivity.class);
+                Intent intent = new Intent(Main.this, ReservationMain.class);
                 startActivity(intent);
                 break;
-            case R.id.searchBtn :
-                Intent intent2 = new Intent(Main.this, ReserveList.class);
-                startActivity(intent2);
-                break;
             case R.id.user_editBtn :
-                Intent intent3 = new Intent(Main.this, UserInfoEditActivity.class);
+                Intent intent3 = new Intent(Main.this, UserInfoView.class);
                 startActivity(intent3);
                 break;
             case R.id.logoutBtn :

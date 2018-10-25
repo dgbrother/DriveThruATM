@@ -9,27 +9,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.example.paul5.DTATM_app.DepositInfo;
 import com.example.paul5.DTATM_app.R;
 import com.example.paul5.DTATM_app.ReservationWork;
 
-public class ReserveDeposit extends Fragment {
+public class Withdraw extends Fragment {
     String selected;
+    EditText eWithdrawAmount;
 
-    public static ReserveDeposit newInstance(String account) {
-        ReserveDeposit reserveDeposit = new ReserveDeposit();
+    public static Withdraw newInstance(String account) {
+        Withdraw withdraw = new Withdraw();
         Bundle args = new Bundle();
         args.putString("account", account);
-        reserveDeposit.setArguments(args);
-        return reserveDeposit;
+        withdraw.setArguments(args);
+        return withdraw;
     }
 
-    //입금하기
+    //출금하기
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_reserve_deposit, container, false);
+        View v = inflater.inflate(R.layout.fragment_reserve_withdraw, container, false);
         String[] account = new String[1];
         if(getArguments() != null) {
             account[0] = getArguments().getString("account");
@@ -52,12 +53,18 @@ public class ReserveDeposit extends Fragment {
         AccountSpinner.setAdapter(spinneradapter);
         spinneradapter.addAll(account);
 
+        eWithdrawAmount = v.findViewById(R.id.input_amount);
+
         return v;
     }
 
-    public ReservationWork getDepositInfo(ReservationWork work) {
+    public ReservationWork getWithdrawInfo(ReservationWork work) {
         final String Info_selected = this.selected;
+        final String Info_WithdrawAmount = this.eWithdrawAmount.getText().toString();
+
         work.setMyAccount(Info_selected);
+        work.setAmount(Info_WithdrawAmount);
+
         return work;
     }
 }
