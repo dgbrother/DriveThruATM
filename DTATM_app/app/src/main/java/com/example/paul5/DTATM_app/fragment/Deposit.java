@@ -9,31 +9,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.paul5.DTATM_app.R;
 import com.example.paul5.DTATM_app.ReservationWork;
-import com.example.paul5.DTATM_app.SendInfo;
-import com.example.paul5.DTATM_app.WithdrawInfo;
 
-public class ReserveWithdraw extends Fragment {
+public class Deposit extends Fragment {
     String selected;
-    EditText eWithdrawAmount;
 
-    public static ReserveWithdraw newInstance(String account) {
-        ReserveWithdraw reserveWithdraw = new ReserveWithdraw();
+    public static Deposit newInstance(String account) {
+        Deposit deposit = new Deposit();
         Bundle args = new Bundle();
         args.putString("account", account);
-        reserveWithdraw.setArguments(args);
-        return reserveWithdraw;
+        deposit.setArguments(args);
+        return deposit;
     }
 
-    //출금하기
+    //입금하기
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_reserve_withdraw, container, false);
+        View v = inflater.inflate(R.layout.fragment_reserve_deposit, container, false);
         String[] account = new String[1];
         if(getArguments() != null) {
             account[0] = getArguments().getString("account");
@@ -56,18 +51,12 @@ public class ReserveWithdraw extends Fragment {
         AccountSpinner.setAdapter(spinneradapter);
         spinneradapter.addAll(account);
 
-        eWithdrawAmount = v.findViewById(R.id.input_amount);
-
         return v;
     }
 
-    public ReservationWork getWithdrawInfo(ReservationWork work) {
+    public ReservationWork getDepositInfo(ReservationWork work) {
         final String Info_selected = this.selected;
-        final String Info_WithdrawAmount = this.eWithdrawAmount.getText().toString();
-
         work.setMyAccount(Info_selected);
-        work.setAmount(Info_WithdrawAmount);
-
         return work;
     }
 }

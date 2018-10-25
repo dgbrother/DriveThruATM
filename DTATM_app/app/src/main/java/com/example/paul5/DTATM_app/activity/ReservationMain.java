@@ -1,71 +1,65 @@
-package com.example.paul5.DTATM_app;
+package com.example.paul5.DTATM_app.activity;
 
-import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
+import com.example.paul5.DTATM_app.ListViewAdapter;
+import com.example.paul5.DTATM_app.R;
+import com.example.paul5.DTATM_app.RequestHttpURLConnection;
+import com.example.paul5.DTATM_app.ReservationWork;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class ReserveList extends AppCompatActivity implements View.OnClickListener {
+public class ReservationMain extends AppCompatActivity implements View.OnClickListener{
     private ListViewAdapter adapter;
-    SharedPreferences appData;
     private String url = "http://35.200.117.1:8080/control.jsp";
     private ContentValues params;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.reserve_list);
+        setContentView(R.layout.reserve_main);
 
-        appData = getSharedPreferences("appData", MODE_PRIVATE);
+        findViewById(R.id.addworkbutton).setOnClickListener(this);
+        findViewById(R.id.backBtn)      .setOnClickListener(this);
+        findViewById(R.id.logoutBtn)    .setOnClickListener(this);
+
+        SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE);
         adapter = new ListViewAdapter();
 
-        Button backBtn = findViewById(R.id.backBtn);
-        Button logoutBtn = findViewById(R.id.logoutBtn);
-        backBtn.setOnClickListener(this);
-        logoutBtn.setOnClickListener(this);
-
-
         params = new ContentValues();
-        params.put("type", "reservation");
-        params.put("action", "select");
-        // 모바일 일 경우
-        params.put("from", "mobile");
-        params.put("userId", "ID1234");
+        params.put("type",      "reservation");
+        params.put("action",    "select");
+        params.put("from",      "mobile");
+        params.put("userId",    appData.getString("id","ID1234"));
 
         NetworkTask getReservationInfoTask = new NetworkTask(url, params);
         getReservationInfoTask.execute();
-
-
-        ListView listview = findViewById(R.id.reservation_list); // reservation_list 는 리스트뷰 이름
-        listview.setAdapter(adapter);
-
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
+        switch (v.getId()){
+            case R.id.addworkbutton:
+                Intent intent = new Intent(ReservationMain.this, ReservationAdd.class);
+                startActivity(intent);
+                break;
             case R.id.backBtn:
-                Intent intent1 = new Intent(ReserveList.this, Main.class);
-                startActivity(intent1);
+                Intent intent2 = new Intent(ReservationMain.this, Main.class);
+                startActivity(intent2);
                 break;
             case R.id.logoutBtn:
-                Intent intent2 = new Intent(ReserveList.this, Login.class);
-                startActivity(intent2);
+                Intent intent3 = new Intent(ReservationMain.this, Login.class);
+                startActivity(intent3);
                 break;
         }
     }
@@ -83,12 +77,10 @@ public class ReserveList extends AppCompatActivity implements View.OnClickListen
         protected JSONObject doInBackground(Void... voids) {
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             JSONObject result = requestHttpURLConnection.request(url, values);
-            Log.d("hello", "json result : "+ result);
-            ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(result);
 
-            for (int i = 0; i < works.size(); i++) {
+            ArrayList<ReservationWork> works = ReservationWork.jsonToReserveInfo(result);
+            for (int i = 0; i < works.size(); i++)
                 adapter.addItem(works.get(i));
-            }
 
             return result;
         }
@@ -97,6 +89,8 @@ public class ReserveList extends AppCompatActivity implements View.OnClickListen
         protected void onPostExecute(JSONObject s) {
             super.onPostExecute(s);
 
+            ListView listview = findViewById(R.id.reservation_list);
+            listview.setAdapter(adapter);
         }
     }
 }

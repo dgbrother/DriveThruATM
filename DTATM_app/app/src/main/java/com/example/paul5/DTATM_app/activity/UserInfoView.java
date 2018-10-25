@@ -1,4 +1,4 @@
-package com.example.paul5.DTATM_app;
+package com.example.paul5.DTATM_app.activity;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
@@ -9,10 +9,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.paul5.DTATM_app.R;
+import com.example.paul5.DTATM_app.RequestHttpURLConnection;
+import com.example.paul5.DTATM_app.UserInfo;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class UserInfoEditActivity extends AppCompatActivity implements View.OnClickListener {
+public class UserInfoView extends AppCompatActivity implements View.OnClickListener {
     private final String SERVER_URL = "http://35.200.117.1:8080/control.jsp";
     SharedPreferences appData;
     EditText eUserName, eUserID, eUserPassword, eUserEmail;
@@ -70,7 +75,7 @@ public class UserInfoEditActivity extends AppCompatActivity implements View.OnCl
     private class NetworkTask extends AsyncTask<Void, Void, UserInfo> {
         private String url;
         private ContentValues values;
-        ProgressDialog spinnerDialog = new ProgressDialog(UserInfoEditActivity.this);
+        ProgressDialog spinnerDialog = new ProgressDialog(UserInfoView.this);
 
         public NetworkTask(String url, ContentValues values) {
             this.url = url;

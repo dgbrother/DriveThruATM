@@ -1,7 +1,10 @@
-package com.example.paul5.DTATM_app;
+package com.example.paul5.DTATM_app.sample;
 
 import android.content.ContentValues;
 import android.os.AsyncTask;
+
+import com.example.paul5.DTATM_app.RequestHttpURLConnection;
+
 import org.json.JSONObject;
 
 import java.util.ArrayList;

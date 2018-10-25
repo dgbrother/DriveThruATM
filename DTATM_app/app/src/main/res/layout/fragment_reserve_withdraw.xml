@@ -4,20 +4,30 @@
     android:layout_height="match_parent"
     android:id="@+id/fragment_withdraw"
     >
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="출금"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:layout_marginVertical="12dp"
+        />
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="본인 계좌 선택"
         android:gravity="center_vertical"
+        android:layout_marginVertical="12dp"
         />
 
     <Spinner
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/spinner_account"
+        android:layout_marginVertical="12dp"
         >
 
     </Spinner>
@@ -25,21 +35,22 @@
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:text="출금할 금액 입력"
+        android:layout_marginVertical="12dp"
         />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginVertical="12dp"
         >
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number"
             android:gravity="center_vertical"
