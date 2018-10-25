@@ -74,8 +74,8 @@ public class Send extends Fragment {
         final String Info_SendAccount = this.eSendAccount.getText().toString();
         final String Info_SendAmount = this.eSendAmount.getText().toString();
 
-        work.setMyAccount(Info_selected);
-        work.setSendAccount(Info_SendAccount);
+        work.setSrcAccount(Info_selected);
+        work.setDstAccount(Info_SendAccount);
         work.setAmount(Info_SendAmount);
 
         return work;

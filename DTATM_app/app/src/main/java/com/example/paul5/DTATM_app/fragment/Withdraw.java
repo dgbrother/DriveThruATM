@@ -62,7 +62,7 @@ public class Withdraw extends Fragment {
         final String Info_selected = this.selected;
         final String Info_WithdrawAmount = this.eWithdrawAmount.getText().toString();
 
-        work.setMyAccount(Info_selected);
+        work.setSrcAccount(Info_selected);
         work.setAmount(Info_WithdrawAmount);
 
         return work;
