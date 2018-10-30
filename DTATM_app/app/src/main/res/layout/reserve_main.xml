@@ -43,14 +43,6 @@
             android:id="@+id/welcome_hostname"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="사용자 번호 : 0"
-            android:id="@+id/welcome_hostnumber"
-            />
-
     </LinearLayout>
 
     <LinearLayout

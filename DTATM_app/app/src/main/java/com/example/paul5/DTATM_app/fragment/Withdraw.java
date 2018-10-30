@@ -36,12 +36,12 @@ public class Withdraw extends Fragment {
             account[0] = getArguments().getString("account");
         }
 
-        final Spinner AccountSpinner = (Spinner) v.findViewById(R.id.spinner_account);
+        final Spinner AccountSpinner = v.findViewById(R.id.spinner_account);
         AccountSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                selected = (String)AccountSpinner.getSelectedItem().toString();
+                selected = AccountSpinner.getSelectedItem().toString();
             }
 
             @Override
