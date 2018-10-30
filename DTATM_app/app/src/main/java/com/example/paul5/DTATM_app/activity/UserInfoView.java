@@ -2,6 +2,7 @@ package com.example.paul5.DTATM_app.activity;
 
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +68,8 @@ public class UserInfoView extends AppCompatActivity implements View.OnClickListe
                 editUserInfo();
                 break;
             case R.id.userInfo_ok_button:
-                finish();
+                Intent intent = new Intent(getApplicationContext(), Main.class);
+                startActivity(intent);
                 break;
         }
     }
