@@ -39,8 +39,10 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_weight="1"
-            android:text="예약하기"
-            android:id="@+id/reserveBtn"/>
+            android:text="예약 및 조회"
+            android:id="@+id/reserveBtn"
+            android:background="#0173a0"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
@@ -55,14 +57,26 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="회원 정보 조회"
-            android:id="@+id/user_editBtn"/>
+            android:id="@+id/user_editBtn"
+            android:background="#0173A0"
+            android:textColor="#ffffff"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:textSize="20dp"
+            />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="로그아웃"
-            android:id="@+id/logoutBtn"/>
+            android:id="@+id/logoutBtn"
+            android:background="#0173a0"
+            android:textColor="#ffffff"/>
 
     </LinearLayout>
 
