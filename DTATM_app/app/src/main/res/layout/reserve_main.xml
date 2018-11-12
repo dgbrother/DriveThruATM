@@ -29,29 +29,7 @@
 
 </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="사용자 이름을 환영합니다"
-            android:id="@+id/welcome_hostname"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:text="사용자 번호 : 0"
-            android:id="@+id/welcome_hostnumber"
-            />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
