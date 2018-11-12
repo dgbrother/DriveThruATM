@@ -27,6 +27,8 @@
         android:id="@+id/logoutBtn"
         android:text="로그아웃"/>
 
+
+
 </LinearLayout>
 
     <LinearLayout
@@ -44,6 +46,8 @@
             />
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

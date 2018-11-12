@@ -170,9 +170,9 @@ public class UserInfoView extends AppCompatActivity implements View.OnClickListe
         eUserID         .setEnabled(enables);
         eUserPassword   .setEnabled(enables);
         eUserEmail      .setEnabled(enables);
-        eUserAccount    .setEnabled(enables);
+        eUserAccount    .setEnabled(false);
         eUserCarNumber  .setEnabled(enables);
-        eUserNFCID      .setEnabled(enables);
+        eUserNFCID      .setEnabled(false);
     }
 
     private void saveCurrentUser(JSONObject jsonObject) {
