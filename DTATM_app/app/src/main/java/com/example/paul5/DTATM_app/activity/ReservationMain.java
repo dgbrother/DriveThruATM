@@ -36,13 +36,10 @@ public class ReservationMain extends AppCompatActivity implements View.OnClickLi
 
         findViewById(R.id.addworkbutton).setOnClickListener(this);
         findViewById(R.id.backBtn)      .setOnClickListener(this);
-        findViewById(R.id.logoutBtn)    .setOnClickListener(this);
 
         SharedPreferences appData = getSharedPreferences("appData", MODE_PRIVATE);
         currentUserId = appData.getString("id","ID1234");
 
-        TextView nameWelcome = findViewById(R.id.welcome_hostname);
-        nameWelcome.setText(appData.getString("name", "방문자")+"님 환영합니다.");
 
         params = new ContentValues();
         params.put("type",      "reservation");
@@ -64,10 +61,6 @@ public class ReservationMain extends AppCompatActivity implements View.OnClickLi
             case R.id.backBtn:
                 Intent intent2 = new Intent(ReservationMain.this, Main.class);
                 startActivity(intent2);
-                break;
-            case R.id.logoutBtn:
-                Intent intent3 = new Intent(ReservationMain.this, Login.class);
-                startActivity(intent3);
                 break;
         }
     }

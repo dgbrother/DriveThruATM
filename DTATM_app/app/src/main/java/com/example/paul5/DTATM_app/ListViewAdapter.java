@@ -29,7 +29,7 @@ public class ListViewAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.reserve_main_listitem, parent, false);
         }
 
-        TextView no         = convertView.findViewById(R.id.no);
+        //TextView no         = convertView.findViewById(R.id.no);
         TextView type       = convertView.findViewById(R.id.type);
         TextView srcAccount = convertView.findViewById(R.id.src_account);
         TextView dstAccount = convertView.findViewById(R.id.dst_account);
@@ -44,7 +44,7 @@ public class ListViewAdapter extends BaseAdapter {
             case "deposit"  : bankingType = "입금"; break;
         }
         
-        no          .setText(item.getNo());
+        //no          .setText(item.getNo());
         type        .setText(bankingType);
         srcAccount  .setText(item.getSrcAccount());
         dstAccount  .setText(item.getDstAccount());

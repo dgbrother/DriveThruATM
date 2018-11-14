@@ -1,96 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="10dp"
-    >
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp">
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backBtn"
-        android:text="뒤로가기"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/logoutBtn"
-        android:text="로그아웃"/>
-
-
-
-</LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="사용자 이름을 환영합니다"
-            android:id="@+id/welcome_hostname"
-            />
-
-    </LinearLayout>
-
-
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
+        android:background="#4848ff"
         >
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="예약할 업무 추가"
-            android:textSize="20sp"
-            android:id="@+id/addworkbutton"
-            />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="5dp"
+            >
+
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/ic_previous2"
+                android:text="뒤로가기"
+                android:textColor="#FFFFFF"/>
+
+            <TextView
+                android:id="@+id/welcome_hostname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:text="업무예약/내역조회"
+                android:textSize="25sp"
+                android:textColor="#FFFFFF"/>
+
+            <Button
+                android:id="@+id/addworkbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00ff0000"
+                android:drawableTop="@drawable/ic_add"
+                android:text="업무추가"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
 
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
+        android:padding="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
         >
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textAppearance="@style/Animation.AppCompat.Dialog"
-            android:text="예약한 업무 목록"
-            android:layout_marginBottom="20dp"
-            />
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/reservation_list"
-            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="예약한 업무를 삭제하려면 내역을 클릭하세요."
+                android:textSize="20sp"
+                android:textColor="@color/colorAccent"
+                />
 
-        </ListView>
+            <ListView
+                android:id="@+id/reservation_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            </ListView>
+
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
