@@ -2,22 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="15dp"
     android:id="@+id/fragment_deposit"
     >
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="선택된 업무 : 입금"
+        android:text="STEP 01.   본인 계좌 선택"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:layout_marginVertical="12dp"
-        />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="본인 계좌 선택"
         android:gravity="center_vertical"
         android:layout_marginVertical="12dp"
         />
@@ -27,6 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/spinner_account"
+        android:textSize="15sp"
         android:layout_marginBottom="15dp"
         >
 

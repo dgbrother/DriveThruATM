@@ -3,21 +3,17 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fragment_send"
+    android:layout_marginHorizontal="15dp"
+    android:layout_marginVertical="15dp"
     >
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="선택된 업무 : 송금"
-        android:textStyle="bold"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
-        android:layout_marginVertical="12dp"
-        />
     
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="본인 계좌 선택"
+        android:text="STEP 01.   본인 계좌 선택"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:gravity="center_vertical"
         android:layout_marginVertical="12dp"
         />
@@ -27,6 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:id="@+id/spinner_account"
+        android:textSize="15sp"
         android:layout_marginBottom="15dp"
         >
 
@@ -36,7 +33,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:text="받을 계좌 입력"
+        android:text="STEP 02.   받을 계좌 입력"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_marginTop="12dp"
         />
 
@@ -55,19 +55,15 @@
             android:id="@+id/send_account"
             />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:text="원"
-            />
-
     </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="송금할 금액 입력"
+        android:text="STEP 03.   송금할 금액 입력"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
         android:layout_marginTop="12dp"
         />
 
@@ -92,6 +88,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:text="원"
+            android:textSize="15sp"
             />
 
     </LinearLayout>

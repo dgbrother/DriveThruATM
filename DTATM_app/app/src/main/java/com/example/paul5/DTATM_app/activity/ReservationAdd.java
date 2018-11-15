@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.paul5.DTATM_app.R;
 import com.example.paul5.DTATM_app.RequestHttpURLConnection;
@@ -20,6 +22,8 @@ import com.example.paul5.DTATM_app.fragment.Withdraw;
 
 public class ReservationAdd extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences appData;
+    Button send_selected, withdraw_selected, deposit_selected;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +42,17 @@ public class ReservationAdd extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.reserve_save)             .setOnClickListener(this);
         findViewById(R.id.reserve_cancel)           .setOnClickListener(this);
 
+
+        send_selected = (Button) findViewById(R.id.reserve_send_button);
+        send_selected.setOnClickListener(this);
+
+        withdraw_selected = (Button) findViewById(R.id.reserve_withdraw_button);
+        withdraw_selected.setOnClickListener(this);
+
+        deposit_selected = (Button) findViewById(R.id.reserve_deposit_button);
+        deposit_selected.setOnClickListener(this);
+
+
         appData = getSharedPreferences("appData", MODE_PRIVATE);
         String currentUserAccount = appData.getString("account", "none");
 
@@ -47,18 +62,29 @@ public class ReservationAdd extends AppCompatActivity implements View.OnClickLis
         transaction.commit();
     }
 
+
+
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
             case R.id.reserve_send_button:  // 송금
+                send_selected.setSelected(true);
+                withdraw_selected.setSelected(false);
+                deposit_selected.setSelected(false);
                 switchFragment("send");
                 break;
 
             case R.id.reserve_withdraw_button:  // 출금
+                send_selected.setSelected(false);
+                withdraw_selected.setSelected(true);
+                deposit_selected.setSelected(false);
                 switchFragment("withdraw");
                 break;
 
             case R.id.reserve_deposit_button:   //입금
+                send_selected.setSelected(false);
+                deposit_selected.setSelected(true);
+                withdraw_selected.setSelected(false);
                 switchFragment("deposit");
                 break;
 
